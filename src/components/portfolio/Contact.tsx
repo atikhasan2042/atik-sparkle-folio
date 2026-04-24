@@ -25,7 +25,6 @@ export const Contact = () => {
 
       <div className="container relative z-10">
         <div className="max-w-2xl mx-auto text-center mb-14">
-          <p className="font-mono text-sm text-accent mb-3">// 05 — let's talk</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
             Let's Build Something <span className="text-gradient">Together</span>
           </h2>

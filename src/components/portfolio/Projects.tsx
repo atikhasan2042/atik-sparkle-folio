@@ -139,6 +139,42 @@ const PhoneMockup = ({
   </div>
 );
 
+const SinglePhone = ({
+  image,
+  alt,
+  className = "",
+}: {
+  image: string;
+  alt: string;
+  className?: string;
+}) => (
+  <div
+    className={`relative h-[340px] w-[170px] sm:h-[380px] sm:w-[190px] rounded-[2.2rem] border-[9px] border-foreground/90 bg-foreground/90 shadow-elevated ${className}`}
+  >
+    <div className="absolute top-2 left-1/2 -translate-x-1/2 h-3.5 w-16 rounded-full bg-background z-10" />
+    <div className="relative h-full w-full overflow-hidden rounded-[1.4rem] bg-background">
+      <img src={image} alt={alt} className="h-full w-full object-cover" loading="lazy" />
+    </div>
+  </div>
+);
+
+const DualPhoneMockup = ({
+  screens,
+  projectName,
+}: {
+  screens: DemoScreen[];
+  projectName: string;
+}) => (
+  <div className="relative mx-auto flex items-center justify-center h-[420px] w-[300px] sm:h-[460px] sm:w-[340px]">
+    <div className="absolute left-0 top-6 -rotate-[8deg] animate-float">
+      <SinglePhone image={screens[0].src} alt={`${projectName} — ${screens[0].label}`} />
+    </div>
+    <div className="absolute right-0 bottom-0 rotate-[8deg] animate-float-slow">
+      <SinglePhone image={screens[1].src} alt={`${projectName} — ${screens[1].label}`} />
+    </div>
+  </div>
+);
+
 const DemoLightbox = ({
   open,
   onClose,
@@ -311,13 +347,19 @@ const ProjectShowcase = ({
           </div>
         </div>
 
-        <div className="flex justify-center animate-float">
-          <PhoneMockup
-            accent={project.accent}
-            initials={project.initials}
-            image={project.heroImage}
-            alt={`${project.name} preview`}
-          />
+        <div className="flex justify-center">
+          {project.featured || project.screens.length < 2 ? (
+            <div className="animate-float">
+              <PhoneMockup
+                accent={project.accent}
+                initials={project.initials}
+                image={project.heroImage}
+                alt={`${project.name} preview`}
+              />
+            </div>
+          ) : (
+            <DualPhoneMockup screens={project.screens} projectName={project.name} />
+          )}
         </div>
       </div>
     </div>
