@@ -1,4 +1,4 @@
-import { Briefcase, GraduationCap, Sparkles } from "lucide-react";
+import { Briefcase, GraduationCap, Sparkles, Palette, Megaphone, Languages } from "lucide-react";
 
 const items = [
   {
@@ -16,6 +16,30 @@ const items = [
     org: "Open-source & Personal Projects",
     description:
       "Built 8+ cross-platform apps with Flutter and Firebase. Focused on clean architecture, performance and pixel-perfect UI.",
+  },
+  {
+    Icon: Palette,
+    period: "2025 — Present",
+    title: "Graphics Secretary",
+    org: "NUB Computer Club (NUBCC)",
+    description:
+      "Leading visual branding for the CSE department's tech club — designing posters, social content and event graphics for workshops and programming contests.",
+  },
+  {
+    Icon: Megaphone,
+    period: "2025 — Present",
+    title: "Campus Ambassador",
+    org: "Techboloy",
+    description:
+      "Driving student engagement around tech workshops and skill-development events on campus, growing Techboloy's reach within the university.",
+  },
+  {
+    Icon: Languages,
+    period: "2025 — Present",
+    title: "Campus Ambassador",
+    org: "English Quest",
+    description:
+      "Promoting communication and English-language programs on campus, helping peers level up their professional and personal soft skills.",
   },
   {
     Icon: GraduationCap,
