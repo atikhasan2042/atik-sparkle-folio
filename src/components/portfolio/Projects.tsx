@@ -1,4 +1,9 @@
-import { ExternalLink, Github, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ExternalLink, Github, Star, X, ChevronLeft, ChevronRight } from "lucide-react";
+import tpHome from "@/assets/tour-partner-home.jpeg";
+import tpProfile from "@/assets/tour-partner-profile.jpeg";
+import tpSettings from "@/assets/tour-partner-settings.jpeg";
+import tpAbout from "@/assets/tour-partner-about.jpeg";
 
 type Project = {
   name: string;
@@ -42,19 +47,38 @@ const projects: Project[] = [
   },
 ];
 
-const PhoneMockup = ({ accent, initials }: { accent: string; initials: string }) => (
+const PhoneMockup = ({
+  accent,
+  initials,
+  image,
+}: {
+  accent: string;
+  initials: string;
+  image?: string;
+}) => (
   <div className="relative mx-auto h-[360px] w-[180px] sm:h-[400px] sm:w-[200px] rounded-[2.4rem] border-[10px] border-foreground/90 bg-foreground/90 shadow-elevated">
     <div className="absolute top-2 left-1/2 -translate-x-1/2 h-4 w-20 rounded-full bg-background z-10" />
-    <div className={`relative h-full w-full overflow-hidden rounded-[1.6rem] bg-gradient-to-br ${accent} flex flex-col items-center justify-center text-foreground`}>
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      <div className="relative font-display text-6xl font-bold text-white drop-shadow-lg">{initials}</div>
-      <p className="relative mt-3 font-mono text-xs text-white/90 tracking-widest">EXPLORE · PLAN · GO</p>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className={`h-1.5 rounded-full bg-white ${i === 0 ? "w-6" : "w-1.5 opacity-60"}`} />
-        ))}
+    {image ? (
+      <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-background">
+        <img
+          src={image}
+          alt="Tour Partner home screen"
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
       </div>
-    </div>
+    ) : (
+      <div className={`relative h-full w-full overflow-hidden rounded-[1.6rem] bg-gradient-to-br ${accent} flex flex-col items-center justify-center text-foreground`}>
+        <div className="absolute inset-0 grid-bg opacity-30" />
+        <div className="relative font-display text-6xl font-bold text-white drop-shadow-lg">{initials}</div>
+        <p className="relative mt-3 font-mono text-xs text-white/90 tracking-widest">EXPLORE · PLAN · GO</p>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className={`h-1.5 rounded-full bg-white ${i === 0 ? "w-6" : "w-1.5 opacity-60"}`} />
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 );
 
@@ -88,9 +112,111 @@ const SmallCard = ({ p }: { p: Project }) => (
   </div>
 );
 
+const demoScreens = [
+  { src: tpProfile, label: "Profile Settings" },
+  { src: tpSettings, label: "App Settings" },
+  { src: tpAbout, label: "About" },
+];
+
+const DemoLightbox = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") setIdx((i) => (i + 1) % demoScreens.length);
+      if (e.key === "ArrowLeft") setIdx((i) => (i - 1 + demoScreens.length) % demoScreens.length);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const next = () => setIdx((i) => (i + 1) % demoScreens.length);
+  const prev = () => setIdx((i) => (i - 1 + demoScreens.length) % demoScreens.length);
+  const current = demoScreens[idx];
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-background/90 backdrop-blur-md p-4 animate-fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Tour Partner demo screens"
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close demo"
+        className="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full glass text-foreground hover:text-accent hover:border-accent transition-colors"
+      >
+        <X className="h-5 w-5" />
+      </button>
+
+      <button
+        type="button"
+        onClick={(e) => { e.stopPropagation(); prev(); }}
+        aria-label="Previous screen"
+        className="absolute left-3 sm:left-8 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full glass text-foreground hover:text-accent hover:border-accent transition-colors"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+
+      <button
+        type="button"
+        onClick={(e) => { e.stopPropagation(); next(); }}
+        aria-label="Next screen"
+        className="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full glass text-foreground hover:text-accent hover:border-accent transition-colors"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
+
+      <div
+        className="relative flex flex-col items-center gap-5"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative h-[70vh] max-h-[640px] aspect-[9/19.5] rounded-[2.4rem] border-[10px] border-foreground/90 bg-foreground/90 shadow-elevated overflow-hidden">
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 h-4 w-20 rounded-full bg-background z-10" />
+          <img
+            src={current.src}
+            alt={`Tour Partner — ${current.label}`}
+            className="h-full w-full object-cover rounded-[1.6rem]"
+          />
+        </div>
+
+        <div className="flex items-center gap-3">
+          <p className="font-display font-semibold text-foreground">{current.label}</p>
+          <span className="font-mono text-xs text-muted-foreground">
+            {idx + 1} / {demoScreens.length}
+          </span>
+        </div>
+
+        <div className="flex gap-2">
+          {demoScreens.map((s, i) => (
+            <button
+              key={s.label}
+              type="button"
+              onClick={() => setIdx(i)}
+              aria-label={`Go to ${s.label}`}
+              className={`h-2 rounded-full transition-all ${i === idx ? "w-8 bg-gradient-primary" : "w-2 bg-muted-foreground/40 hover:bg-muted-foreground/70"}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const Projects = () => {
   const featured = projects.find((p) => p.featured)!;
   const rest = projects.filter((p) => !p.featured);
+  const [demoOpen, setDemoOpen] = useState(false);
 
   return (
     <section id="projects" className="relative py-28 sm:py-32">
@@ -132,9 +258,13 @@ export const Projects = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <a href="#" className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-6 py-3 font-semibold text-primary-foreground shadow-glow-primary transition-transform hover:scale-105">
+                  <button
+                    type="button"
+                    onClick={() => setDemoOpen(true)}
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-6 py-3 font-semibold text-primary-foreground shadow-glow-primary transition-transform hover:scale-105"
+                  >
                     <ExternalLink className="h-4 w-4" /> View Demo
-                  </a>
+                  </button>
                   <a href="https://github.com/atikhasan2042" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border glass px-6 py-3 font-semibold text-foreground hover:border-accent/60 hover:text-accent transition-colors">
                     <Github className="h-4 w-4" /> Source
                   </a>
@@ -142,7 +272,7 @@ export const Projects = () => {
               </div>
 
               <div className="flex justify-center animate-float">
-                <PhoneMockup accent={featured.accent} initials={featured.initials} />
+                <PhoneMockup accent={featured.accent} initials={featured.initials} image={tpHome} />
               </div>
             </div>
           </div>
@@ -155,6 +285,8 @@ export const Projects = () => {
           ))}
         </div>
       </div>
+
+      <DemoLightbox open={demoOpen} onClose={() => setDemoOpen(false)} />
     </section>
   );
 };
