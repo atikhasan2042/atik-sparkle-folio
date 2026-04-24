@@ -114,18 +114,18 @@ const PhoneMockup = ({
   alt?: string;
 }) => (
   <div className="relative mx-auto h-[360px] w-[180px] sm:h-[400px] sm:w-[200px] rounded-[2.4rem] border-[10px] border-foreground/90 bg-foreground/90 shadow-elevated">
-    <div className="absolute top-2 left-1/2 -translate-x-1/2 h-4 w-20 rounded-full bg-background z-10" />
     {image ? (
       <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-background">
         <img
           src={image}
           alt={alt ?? "App preview"}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-top"
           loading="lazy"
         />
       </div>
     ) : (
       <div className={`relative h-full w-full overflow-hidden rounded-[1.6rem] bg-gradient-to-br ${accent} flex flex-col items-center justify-center text-foreground`}>
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 h-4 w-20 rounded-full bg-background/90 z-10" />
         <div className="absolute inset-0 grid-bg opacity-30" />
         <div className="relative font-display text-6xl font-bold text-white drop-shadow-lg">{initials}</div>
         <p className="relative mt-3 font-mono text-xs text-white/90 tracking-widest">EXPLORE · PLAN · GO</p>
@@ -149,11 +149,10 @@ const SinglePhone = ({
   className?: string;
 }) => (
   <div
-    className={`relative h-[340px] w-[170px] sm:h-[380px] sm:w-[190px] rounded-[2.2rem] border-[9px] border-foreground/90 bg-foreground/90 shadow-elevated ${className}`}
+    className={`relative h-[380px] w-[185px] sm:h-[420px] sm:w-[205px] rounded-[2.2rem] border-[9px] border-foreground/90 bg-foreground/90 shadow-elevated ${className}`}
   >
-    <div className="absolute top-2 left-1/2 -translate-x-1/2 h-3.5 w-16 rounded-full bg-background z-10" />
     <div className="relative h-full w-full overflow-hidden rounded-[1.4rem] bg-background">
-      <img src={image} alt={alt} className="h-full w-full object-cover" loading="lazy" />
+      <img src={image} alt={alt} className="h-full w-full object-cover object-top" loading="lazy" />
     </div>
   </div>
 );
@@ -165,11 +164,11 @@ const DualPhoneMockup = ({
   screens: DemoScreen[];
   projectName: string;
 }) => (
-  <div className="relative mx-auto flex items-center justify-center h-[420px] w-[300px] sm:h-[460px] sm:w-[340px]">
-    <div className="absolute left-0 top-6 -rotate-[8deg] animate-float">
+  <div className="relative mx-auto flex items-center justify-center h-[460px] w-[320px] sm:h-[500px] sm:w-[360px]">
+    <div className="absolute left-0 top-4 -rotate-[8deg] animate-float">
       <SinglePhone image={screens[0].src} alt={`${projectName} — ${screens[0].label}`} />
     </div>
-    <div className="absolute right-0 bottom-0 rotate-[8deg] animate-float-slow">
+    <div className="absolute right-0 bottom-2 rotate-[8deg] animate-float-slow">
       <SinglePhone image={screens[1].src} alt={`${projectName} — ${screens[1].label}`} />
     </div>
   </div>
@@ -257,11 +256,10 @@ const DemoLightbox = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative h-[70vh] max-h-[640px] aspect-[9/19.5] rounded-[2.4rem] border-[10px] border-foreground/90 bg-foreground/90 shadow-elevated overflow-hidden">
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 h-4 w-20 rounded-full bg-background z-10" />
           <img
             src={current.src}
             alt={`${projectName} — ${current.label}`}
-            className="h-full w-full object-cover rounded-[1.6rem]"
+            className="h-full w-full object-cover object-top rounded-[1.6rem]"
           />
         </div>
 
