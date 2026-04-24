@@ -9,6 +9,11 @@ const skills = [
   { name: "Git & GitHub", level: 88, color: "from-rose-400 to-pink-500" },
   { name: "UI / UX Design", level: 78, color: "from-fuchsia-400 to-purple-500" },
   { name: "REST APIs", level: 82, color: "from-indigo-400 to-violet-500" },
+  { name: "C", level: 75, color: "from-slate-400 to-slate-600" },
+  { name: "C++", level: 72, color: "from-blue-400 to-indigo-600" },
+  { name: "HTML5", level: 80, color: "from-orange-400 to-red-500" },
+  { name: "CSS3", level: 78, color: "from-blue-400 to-sky-600" },
+  { name: "JavaScript", level: 70, color: "from-yellow-300 to-amber-500" },
 ];
 
 export const Skills = () => {
