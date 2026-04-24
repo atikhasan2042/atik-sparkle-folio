@@ -128,7 +128,7 @@ export const Contact = () => {
               disabled={sending}
               className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-primary px-6 py-3.5 font-semibold text-primary-foreground shadow-glow-primary transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {sending ? "Sending…" : (<><Send className="h-4 w-4" /> Send Message</>)}
+              {sending ? "Sending…" : (<><Send className="you@example.com" /> Send Message</>)}
             </button>
           </form>
         </div>

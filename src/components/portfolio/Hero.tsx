@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Github, Linkedin, Facebook, Mail, ArrowRight, Sparkles } from "lucide-react";
+import { Github, Linkedin, Facebook, Mail, ArrowRight } from "lucide-react";
 import portrait from "@/assets/atik-portrait.jpg";
 
 const ROLES = ["App Developer", "Software Engineer"];
@@ -39,13 +39,7 @@ export const Hero = () => {
       <div className="container relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-8 items-center">
         {/* Left */}
         <div className="space-y-8 animate-fade-in">
-          <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs font-medium text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5 text-accent" />
-            Available for freelance · Bangladesh
-          </div>
-
           <div className="space-y-4">
-            <p className="font-mono text-sm text-accent">{"// Hello, world. I'm —"}</p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95]">
               Atik <span className="text-gradient">Hasan</span>
             </h1>
