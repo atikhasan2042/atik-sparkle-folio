@@ -32,7 +32,6 @@ export const Experience = () => {
     <section id="experience" className="relative py-28 sm:py-32">
       <div className="container relative z-10">
         <div className="max-w-2xl mb-14">
-          <p className="font-mono text-sm text-accent mb-3">// 03 — journey</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
             Experience & <span className="text-gradient">Education</span>
           </h2>

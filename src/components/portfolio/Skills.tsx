@@ -29,7 +29,6 @@ export const Skills = () => {
       <div className="absolute inset-0 grid-bg opacity-50" aria-hidden="true" />
       <div className="container relative z-10">
         <div className="max-w-2xl mb-14">
-          <p className="font-mono text-sm text-accent mb-3">// 02 — skills</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
             My <span className="text-gradient">Toolbox</span>
           </h2>
