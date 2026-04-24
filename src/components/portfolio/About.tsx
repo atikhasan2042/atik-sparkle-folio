@@ -14,7 +14,6 @@ export const About = () => {
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-start">
           {/* Left column */}
           <div className="space-y-6">
-            <p className="font-mono text-sm text-accent">// 01 — about</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold">
               About <span className="text-gradient">Me</span>
             </h2>
