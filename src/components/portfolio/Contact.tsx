@@ -1,21 +1,52 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Facebook } from "lucide-react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Invalid email").max(255),
+  message: z.string().trim().min(5, "Message is too short").max(2000),
+});
 
 export const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const parsed = contactSchema.safeParse(form);
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0].message);
+      return;
+    }
     setSending(true);
-    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\nFrom: ${form.name} <${form.email}>`);
-    window.location.href = `mailto:atikhasan.io2042@gmail.com?subject=${subject}&body=${body}`;
-    setTimeout(() => {
+    try {
+      const { data, error } = await supabase
+        .from("contact_messages")
+        .insert(parsed.data)
+        .select("id")
+        .single();
+      if (error) throw error;
+
+      // Fire-and-forget email notification
+      supabase.functions
+        .invoke("send-contact-email", { body: { messageId: data.id } })
+        .catch((err) => console.warn("Email notification failed:", err));
+
+      toast.success("Message sent!", {
+        description: "Atik will get back to you soon.",
+      });
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error(err);
+      toast.error("Could not send message", {
+        description: "Please try again or email directly.",
+      });
+    } finally {
       setSending(false);
-      toast.success("Opening your email client…", { description: "Thanks for reaching out!" });
-    }, 600);
+    }
   };
 
   return (
@@ -127,7 +158,7 @@ export const Contact = () => {
               disabled={sending}
               className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-primary px-6 py-3.5 font-semibold text-primary-foreground shadow-glow-primary transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {sending ? "Sending…" : (<><Send className="you@example.com" /> Send Message</>)}
+              {sending ? "Sending…" : (<><Send className="h-4 w-4" /> Send Message</>)}
             </button>
           </form>
         </div>
