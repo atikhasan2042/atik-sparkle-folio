@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Github, Linkedin, Facebook, Mail, ArrowRight } from "lucide-react";
 import portrait from "@/assets/atik-portrait.jpg";
 
-const ROLES = ["App Developer", "Software Engineer"];
+const ROLES = ["App developer", "Software Engineer"];
 
 export const Hero = () => {
   const [text, setText] = useState("");
@@ -44,7 +44,7 @@ export const Hero = () => {
               Atik <span className="text-gradient">Hasan</span>
             </h1>
             <div className="flex items-center gap-2 text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-foreground/90 min-h-[2.5rem]">
-              <span className="text-muted-foreground">I'm a</span>
+              <span className="text-muted-foreground">I'm</span>
               <span className="bg-gradient-text bg-clip-text text-transparent">{text}</span>
               <span className="inline-block h-7 sm:h-8 lg:h-10 w-[3px] bg-accent animate-blink" aria-hidden="true" />
             </div>
