@@ -14,16 +14,124 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          email_sent: boolean
+          id: string
+          is_read: boolean
+          message: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          email_sent?: boolean
+          id?: string
+          is_read?: boolean
+          message: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          email_sent?: boolean
+          id?: string
+          is_read?: boolean
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      visitors: {
+        Row: {
+          browser: string | null
+          city: string | null
+          country: string | null
+          device_type: string | null
+          duration_seconds: number | null
+          id: string
+          ip_hash: string | null
+          last_active_at: string
+          os: string | null
+          page_path: string | null
+          referrer: string | null
+          session_id: string
+          user_agent: string | null
+          visited_at: string
+        }
+        Insert: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          device_type?: string | null
+          duration_seconds?: number | null
+          id?: string
+          ip_hash?: string | null
+          last_active_at?: string
+          os?: string | null
+          page_path?: string | null
+          referrer?: string | null
+          session_id: string
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Update: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          device_type?: string | null
+          duration_seconds?: number | null
+          id?: string
+          ip_hash?: string | null
+          last_active_at?: string
+          os?: string | null
+          page_path?: string | null
+          referrer?: string | null
+          session_id?: string
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin_email: { Args: { _email: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +258,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
