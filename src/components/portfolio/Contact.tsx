@@ -23,9 +23,10 @@ export const Contact = () => {
     }
     setSending(true);
     try {
+      const { name, email, message } = parsed.data;
       const { data, error } = await supabase
         .from("contact_messages")
-        .insert(parsed.data)
+        .insert({ name, email, message })
         .select("id")
         .single();
       if (error) throw error;
