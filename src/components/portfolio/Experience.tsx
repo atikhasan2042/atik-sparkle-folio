@@ -43,7 +43,7 @@ const items = [
   },
   {
     Icon: GraduationCap,
-    period: "2022 — Present",
+    period: "2023 — Present",
     title: "B.Sc. in Computer Science",
     org: "Northern University Bangladesh",
     description:
