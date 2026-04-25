@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Loader } from "@/components/portfolio/Loader";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { Navbar } from "@/components/portfolio/Navbar";
@@ -10,8 +11,13 @@ import { Gallery } from "@/components/portfolio/Gallery";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { BackToTop } from "@/components/portfolio/BackToTop";
+import { trackVisit } from "@/lib/visitorTracker";
 
 const Index = () => {
+  useEffect(() => {
+    trackVisit();
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-background text-foreground">
       <Loader />
